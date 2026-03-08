@@ -1,63 +1,44 @@
 import './App.css'
 import {useState} from "react";
+import ZonePendu from "./components/ZonePendu.tsx";
+import ZoneEnigme from "./components/ZoneEnigme.tsx";
+import ZoneProposition from "./components/ZoneProposition.tsx";
+import {isLetter} from "./utils/Utils.ts";
 
-const isLetter = (key: string) => {
-    const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-    return letters.includes(key)
-}
 const mots = 'manger un sandwitch';
 
 function App() {
 
-    const phraseToCharArray = (phrase: string): string[][] => {
-        return phrase.split(' ').map(mot => mot.split(''));
-    }
-    console.log(phraseToCharArray(mots))
+  // La proposition courante du joueur
+  const [guess, setGuess] = useState<string | null>(null);
+  // la liste des propostions effectuées par le joueur
+  const [guesses, setGuesses] = useState<string[]>([]);
+  console.log({guesses})
+  // le nombre de propositions faites par le joueurs qui ne font pas parti de phraseToCharArray(mots)
+  const [errors, setErrors] = useState<number>(0);
 
-    const [guess, setGuess] = useState(null);
-    const [isGuessFocused, setIsGuessFocused] = useState(false);
-    const toggleFocus = () => {
-        setIsGuessFocused(!isGuessFocused);
+  const handleGuessValidate = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      console.log({e})
+      if (!isLetter(e.key) && e.code !== 'Enter') {
+          return
+      }
+
+    if ( isLetter(e.key) && e.code !== 'Enter'  ) {
+      setGuess(e.key);
     }
-    const handleGuessClick = () => {
-        toggleFocus();
-    }
-    const handleGuessValidate = (e: any) => {
-        console.log(e)
-        if (e.code === 'Enter') {
-            console.log('to check');
-            setGuess(null)
-        }
-        else if (isLetter(e.key)) {
-            setGuess(e.key)
-        }
-    }
+
+      if ( e.code === 'Enter' && guess && !guesses.includes(guess)  ) {
+        console.log('dans le if enter')
+        setGuesses([...guesses, guess]);
+        setGuess(null);
+      }
+  }
 
   return (
       <div className="playground">
-          <div className="penduZone"></div>
-          <div className="summary">
-              {phraseToCharArray(mots).map((mot, index) => (
-                  <div className="mot" key={index}>
-                      {mot.map((letter, i) => (
-                          <div className="letter" key={i}>{letter}</div>
-                      ))}
-                  </div>
-                  )
-              )}
-          </div>
-          <div
-              className="guessZone"
-          >
-              <input
-                  className={ isGuessFocused ? "playerGuess focused" : "playerGuess"}
-                  value={guess ?? '_'}
-                  onFocus={toggleFocus}
-                  onBlur={toggleFocus}
-                  onClick={handleGuessClick}
-                  onKeyDown={e => handleGuessValidate(e)}
-              />
-          </div>
+          <ZonePendu />
+          <ZoneEnigme mots={mots} guesses={guesses} guess={guess}/>
+          <ZoneProposition guess={guess} handleGuessValidate={handleGuessValidate}/>
       </div>
   )
 }
