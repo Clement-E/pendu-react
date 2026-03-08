@@ -1,0 +1,59 @@
+.playground {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  gap: 80px;
+  flex-direction: column;
+  padding: 40px 40px;
+
+  .summary {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+
+    .mot {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+
+    .letter {
+      width: 40px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 40px;
+
+      &.playable {
+        border-bottom: 2px solid white;
+      }
+
+      &.empty {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .guessZone {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .playerGuess {
+      width: 100px;
+      height: 140px;
+      border: 3px solid white;
+      border-radius: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 80px;
+      padding-left: 70px;
+      &.focused {
+        border: 3px solid hotpink;
+      }
+    }
+  }
+}
