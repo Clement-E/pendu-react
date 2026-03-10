@@ -5,7 +5,8 @@ import ZoneEnigme from "./components/ZoneEnigme.tsx";
 import ZoneProposition from "./components/ZoneProposition.tsx";
 import {isLetter, phraseToCharArray} from "./utils/Utils.ts";
 
-const mots = 'manger un sandwitch';
+const mots = "voiture de course";
+// TODO https://trouve-mot.fr/
 
 function App() {
 
@@ -45,6 +46,9 @@ function App() {
     if (motsFlat.has(guess)) {
       setGuesses([...guesses, guess]);
     } else {
+      if (errors.includes(guess)) {
+        return;
+      }
       setErrors([...errors, guess]);
     }
 

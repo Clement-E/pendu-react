@@ -15,8 +15,14 @@ const motsArray = phraseToCharArray(mots);
             <div className="mot" key={i}>
               {mot.map((letter, j) => {
                 const isGuessed = guesses.includes(letter);
+                const ponctuation = letter === ("'" || ",");
                 return (
-                  <div className={isGuessed ? "letter" : "unknown"} key={j}>{isGuessed ? letter : ""}</div>
+                  <div
+                      className={(isGuessed || ponctuation)? "letter" : "unknown"}
+                      key={j}
+                  >
+                    {(isGuessed || ponctuation) ? letter.toUpperCase() : ""}
+                  </div>
                 )
               })}
             </div>

@@ -4,15 +4,81 @@
   display: flex;
   gap: 80px;
   flex-direction: column;
+  align-items: center;
   padding: 40px 40px;
   font-family: 'Roboto', sans-serif;
+
+  .zone-pendu {
+    position: relative;
+    width: 300px;
+    height: 220px;
+    .base,.mat,.potence,.angle,.corde,.tete,.body,.bras,.jambes {
+      position: absolute;
+    }
+    .base {
+      bottom: 0;
+      width: 100%;
+    }
+    .mat {
+      bottom: 55px;
+      height: 150px;
+      right: 100px;
+    }
+    .potence {
+      width: 150px;
+      bottom: 200px;
+      right: 100px;
+    }
+    .angle {
+      width: 40px;
+      bottom: 160px;
+      right: 100px;
+    }
+    .corde {
+      height: 30px;
+      right: 235px;
+      bottom: 170px;
+      width: 2px;
+    }
+    .tete {
+      width: 40px;
+      right: 220px;
+      bottom: 140px;
+    }
+    .body {
+      height: 70px;
+      right: 240px;
+      bottom: 70px;
+    }
+    .bras {
+      width: 80px;
+      right: 203px;
+      bottom: 60px;
+    }
+    .jambes {
+      width: 80px;
+      right: 212px;
+      bottom: 20px;
+    }
+    .perdu {
+      position: absolute;
+      right: 20px;
+      top: 50px;
+      rotate: -20deg;
+      font-size: 30px;
+      color: darkred;
+      padding: 20px 80px;
+      border: 3px solid darkred;
+      background-color: #efc3c3;
+    }
+  }
 
   .summary {
     width: 100%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 50px;
+    gap: 60px;
 
     .mot {
       display: flex;
@@ -40,10 +106,11 @@
     }
 
     .unknown {
-      width: 40px;
+      width: 60px;
       height: 80px;
-      border-bottom: 2px solid black;
-
+      border: 1px solid #e5e4e4;
+      border-radius: 4px;
+      box-shadow: -10px 10px 10px #d4d4d450;
     }
   }
 
@@ -54,16 +121,13 @@
     .playerGuess {
       width: 100px;
       height: 140px;
-      border: 3px solid white;
+      border: 3px solid #8024e0;
       border-radius: 6px;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 80px;
-      padding-left: 70px;
-      &.focused {
-        border: 3px solid hotpink;
-      }
+      padding-left: 55px;
     }
   }
 }
