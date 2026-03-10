@@ -22,7 +22,7 @@ const ZoneProposition = ({guess, handleGuessValidate}: ZonePropositionProps) => 
     >
       <input
         className={ isGuessFocused ? "playerGuess focused" : "playerGuess"}
-        value={guess ?? '_'}
+        value={guess ?? ''}
         onFocus={toggleFocus}
         onBlur={toggleFocus}
         onClick={handleGuessClick}
