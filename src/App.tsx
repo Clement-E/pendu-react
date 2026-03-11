@@ -5,7 +5,7 @@ import ZoneEnigme from "./components/ZoneEnigme.tsx";
 import ZoneProposition from "./components/ZoneProposition.tsx";
 import {isLetter, phraseToCharArray} from "./utils/Utils.ts";
 
-const mots = "voiture de course";
+const mots = "un nouveau mot";
 // TODO https://trouve-mot.fr/
 
 function App() {

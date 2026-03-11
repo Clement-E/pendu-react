@@ -21,6 +21,16 @@ const motsArray = phraseToCharArray(mots);
                       className={(isGuessed || ponctuation)? "letter" : "unknown"}
                       key={j}
                   >
+                    <div className="card">
+                      <div className="content">
+                        <div className="front">
+
+                        </div>
+                        <div className="back">
+                          {letter.toUpperCase()}
+                        </div>
+                      </div>
+                    </div>
                     {(isGuessed || ponctuation) ? letter.toUpperCase() : ""}
                   </div>
                 )
