@@ -1,27 +1,29 @@
 import {phraseToCharArray} from "../utils/Utils.ts";
 
-interface ZoneEnigmeProps {
-  mots: string;
+interface EnigmeAreaProps {
+  mots?: string;
   guesses: string[];
   guess: string | null;
 }
 
-const ZoneEnigme = ({mots, guesses} : ZoneEnigmeProps) => {
-const motsArray = phraseToCharArray(mots);
+const EnigmeArea = ({mots, guesses} : EnigmeAreaProps) => {
+
+  const motsArray = phraseToCharArray(mots);
 
   return (
     <div className="summary">
-      {motsArray.map((mot, i) => (
+      {motsArray?.map((mot, i) => (
             <div className="mot" key={i}>
               {mot.map((letter, j) => {
                 const isGuessed = guesses.includes(letter);
                 const ponctuation = letter === ("'" || ",");
+                const isRevealed = isGuessed || ponctuation;
                 return (
                   <div
-                      className={(isGuessed || ponctuation)? "letter" : "unknown"}
+                      // className={isRevealed? "letter" : "unknown"}
                       key={j}
                   >
-                    <div className="card">
+                    <div className={isRevealed ? "card revealed" : "card"}>
                       <div className="content">
                         <div className="front">
 
@@ -31,7 +33,6 @@ const motsArray = phraseToCharArray(mots);
                         </div>
                       </div>
                     </div>
-                    {(isGuessed || ponctuation) ? letter.toUpperCase() : ""}
                   </div>
                 )
               })}
@@ -43,4 +44,4 @@ const motsArray = phraseToCharArray(mots);
 
 }
 
-export default ZoneEnigme;
+export default EnigmeArea;

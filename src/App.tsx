@@ -1,25 +1,35 @@
 import './App.css'
 import {useState} from "react";
-import ZonePendu from "./components/ZonePendu.tsx";
-import ZoneEnigme from "./components/ZoneEnigme.tsx";
-import ZoneProposition from "./components/ZoneProposition.tsx";
-import {isLetter, phraseToCharArray} from "./utils/Utils.ts";
-
-const mots = "un nouveau mot";
-// TODO https://trouve-mot.fr/
+import PenduArea from "./components/PenduArea.tsx";
+import ZoneEnigme from "./components/EnigmeArea.tsx";
+import PropositionArea from "./components/PropositionArea.tsx";
+import {isLetter, phraseToCharArray, removeAccents} from "./utils/Utils.ts";
+import {useQuery} from "@tanstack/react-query";
+import {fetchRandomWord, RandomWordResponse} from "./api/mots.ts";
 
 function App() {
 
   // La proposition courante du joueur
   const [guess, setGuess] = useState<string | null>(null);
-  console.log({guess})
   // la liste des propostions effectuées par le joueur
   const [guesses, setGuesses] = useState<string[]>([]);
-  console.log({guesses})
   // le nombre de propositions faites par le joueurs qui ne font pas parti de phraseToCharArray(mots)
   const [errors, setErrors] = useState<string[]>([]);
+  console.log("%c 1 --> Line: 18||App.tsx\n errors: ","color:#f0f;", errors);
 
-  const motsFlat = new Set(phraseToCharArray(mots).flatMap(mot => mot));
+  const { data } = useQuery<RandomWordResponse[], Error>({
+    queryKey: ['motWord'],
+    queryFn: fetchRandomWord,
+  });
+
+  const mots = removeAccents(data?.[0].name);
+  const motsFlat = new Set(phraseToCharArray(mots)?.flatMap(mot => mot));
+  const isGameOver = errors.length > 8;
+  console.log("%c 2 --> Line: 28||App.tsx\n isLost: ","color:#0f0;", isGameOver);
+
+  const reset = () => {
+    console.log('todo');
+  }
 
   const handleGuessValidate = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const ENTER_KEY = 'Enter';
@@ -46,9 +56,6 @@ function App() {
     if (motsFlat.has(guess)) {
       setGuesses([...guesses, guess]);
     } else {
-      if (errors.includes(guess)) {
-        return;
-      }
       setErrors([...errors, guess]);
     }
 
@@ -57,9 +64,14 @@ function App() {
 
   return (
       <div className="playground">
-          <ZonePendu errors={errors}/>
+          <PenduArea errors={errors}/>
           <ZoneEnigme mots={mots} guesses={guesses} guess={guess}/>
-          <ZoneProposition guess={guess} handleGuessValidate={handleGuessValidate}/>
+          <PropositionArea
+            guess={guess}
+            handleGuessValidate={handleGuessValidate}
+            isGameOver={isGameOver}
+            reset={reset}
+          />
       </div>
   )
 }

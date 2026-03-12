@@ -1,7 +1,7 @@
-interface ZonePenduProps {
+interface PenduAreaProps {
   errors: string[];
 }
-const ZonePendu = ({errors}:ZonePenduProps) => {
+const PenduArea = ({errors}:PenduAreaProps) => {
   const e = (number: number) => errors.length + 1 > number;
   return (
       <div className="zone-pendu">
@@ -19,4 +19,4 @@ const ZonePendu = ({errors}:ZonePenduProps) => {
   )
 }
 
-export default ZonePendu;
+export default PenduArea;
