@@ -3,7 +3,7 @@ import {useState} from "react";
 interface PropositionAreaProps {
   guess: string | null;
   handleGuessValidate: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  isGameOver: boolean;
+  isGameOver?: boolean;
   reset: () => void
 }
 const PropositionArea = ({

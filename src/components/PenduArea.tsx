@@ -1,10 +1,12 @@
 interface PenduAreaProps {
   errors: string[];
+  isWon?: boolean;
 }
-const PenduArea = ({errors}:PenduAreaProps) => {
+const PenduArea = ({errors, isWon}:PenduAreaProps) => {
   const e = (number: number) => errors.length + 1 > number;
   return (
       <div className="zone-pendu">
+        {isWon && <span className="gagné">Gagné!</span>}
         {e(9) && <span className="perdu">Pendu !</span>}
         {e(9) && <img className="jambes" src="../../public/jambes.png" alt=""/>}
         {e(8) && <img className="bras" src="../../public/bras.png" alt=""/>}
@@ -15,6 +17,7 @@ const PenduArea = ({errors}:PenduAreaProps) => {
         {e(3) && <img className="potence" src="../../public/horizontal.png" alt=""/>}
         {e(2) && <img className="mat" src="../../public/mat.png" alt=""/>}
         {e(1) && <img className="base" src="../../public/base.png" alt=""/>}
+
       </div>
   )
 }

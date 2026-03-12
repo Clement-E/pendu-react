@@ -15,20 +15,26 @@ function App() {
   const [guesses, setGuesses] = useState<string[]>([]);
   // le nombre de propositions faites par le joueurs qui ne font pas parti de phraseToCharArray(mots)
   const [errors, setErrors] = useState<string[]>([]);
-  console.log("%c 1 --> Line: 18||App.tsx\n errors: ","color:#f0f;", errors);
 
-  const { data } = useQuery<RandomWordResponse[], Error>({
+  const { data, refetch } = useQuery<RandomWordResponse[], Error>({
     queryKey: ['motWord'],
     queryFn: fetchRandomWord,
   });
 
   const mots = removeAccents(data?.[0].name);
   const motsFlat = new Set(phraseToCharArray(mots)?.flatMap(mot => mot));
-  const isGameOver = errors.length > 8;
-  console.log("%c 2 --> Line: 28||App.tsx\n isLost: ","color:#0f0;", isGameOver);
+
+  const isWon = phraseToCharArray(mots)
+      ?.flatMap(mot => mot)
+      .every(letter => guesses.includes(letter));
+
+  const isGameOver = errors.length > 8 || isWon;
 
   const reset = () => {
-    console.log('todo');
+    setGuess(null);
+    setGuesses([]);
+    setErrors([]);
+    refetch().catch(console.error);
   }
 
   const handleGuessValidate = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -64,8 +70,15 @@ function App() {
 
   return (
       <div className="playground">
-          <PenduArea errors={errors}/>
-          <ZoneEnigme mots={mots} guesses={guesses} guess={guess}/>
+          <PenduArea
+              errors={errors}
+              isWon={isWon}
+          />
+          <ZoneEnigme
+            mots={mots}
+            guesses={guesses}
+            isGameOver={isGameOver}
+          />
           <PropositionArea
             guess={guess}
             handleGuessValidate={handleGuessValidate}

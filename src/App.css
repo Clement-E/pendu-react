@@ -65,11 +65,27 @@
       right: 20px;
       top: 50px;
       rotate: -20deg;
-      font-size: 30px;
-      color: darkred;
-      padding: 20px 80px;
-      border: 3px solid darkred;
-      background-color: #efc3c3;
+      font-size: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7114d2;
+      padding: 20px 60px;
+      border: 3px solid #7114d2;
+      background-color: #d4b8f3;
+    }
+    .gagné {
+      position: absolute;
+      right: 20px;
+      top: 50px;
+      font-size: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7114d2;
+      padding: 20px 60px;
+      border: 3px solid #7114d2;
+      background-color: #d4b8f3;
     }
   }
 
@@ -115,11 +131,8 @@
 
     .card {
       position: relative;
-      // top: 50%;
-      // left: 50%;
       width: 60px;
       height: 80px;
-      // margin: -150px;
       float: left;
       perspective: 500px;
     }
@@ -144,7 +157,6 @@
       height: 100%;
       width: 100%;
       background: white;
-      color: #03446A;
       text-align: center;
       font-size: 60px;
       border-radius: 5px;
@@ -152,9 +164,12 @@
     }
 
     .back {
-      background: #03446A;
+      background: #8024e0;
       color: white;
       transform: rotateY( 180deg );
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 
@@ -185,5 +200,6 @@
     background-color: #8024e0;
     color: white;
     font-weight: 700;
+    cursor: pointer;
   }
 }

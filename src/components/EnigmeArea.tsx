@@ -3,10 +3,10 @@ import {phraseToCharArray} from "../utils/Utils.ts";
 interface EnigmeAreaProps {
   mots?: string;
   guesses: string[];
-  guess: string | null;
+  isGameOver?: boolean;
 }
 
-const EnigmeArea = ({mots, guesses} : EnigmeAreaProps) => {
+const EnigmeArea = ({mots, guesses, isGameOver} : EnigmeAreaProps) => {
 
   const motsArray = phraseToCharArray(mots);
 
@@ -17,20 +17,13 @@ const EnigmeArea = ({mots, guesses} : EnigmeAreaProps) => {
               {mot.map((letter, j) => {
                 const isGuessed = guesses.includes(letter);
                 const ponctuation = letter === ("'" || ",");
-                const isRevealed = isGuessed || ponctuation;
+                const isRevealed = isGuessed || ponctuation || isGameOver;
                 return (
-                  <div
-                      // className={isRevealed? "letter" : "unknown"}
-                      key={j}
-                  >
+                  <div key={j}>
                     <div className={isRevealed ? "card revealed" : "card"}>
                       <div className="content">
-                        <div className="front">
-
-                        </div>
-                        <div className="back">
-                          {letter.toUpperCase()}
-                        </div>
+                        <div className="front"></div>
+                        <div className="back"> {letter.toUpperCase()} </div>
                       </div>
                     </div>
                   </div>
